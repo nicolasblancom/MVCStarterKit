@@ -1,0 +1,10 @@
+{
+    "require": {
+        "php": ">=5.3.0",
+        "raveren/kint": "0.9.*@dev",
+        "phpmailer/phpmailer": "dev-master"
+    },
+    "autoload": {
+    	"psr-4": { "": ["application/core/", "application/model/", "application/libs"] }
+    }
+}
