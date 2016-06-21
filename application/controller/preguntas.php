@@ -5,7 +5,7 @@ class Preguntas extends Controller{
 	public function todas(){
 		//mostrar todas las preguntas
 		$preguntas = PreguntasModel::getAll();
-		$this->view->render('preguntas/todas', array(
+		echo $this->view->render('preguntas/todas', array(
 			'preguntas' => $preguntas
 		));
 		//d($preguntas);
@@ -14,7 +14,7 @@ class Preguntas extends Controller{
 	public function crear(){
 		if(!$_POST){
 			//es que no recibo datos de formulario
-			$this->view->render('preguntas/formulariopregunta');
+			echo $this->view->render('preguntas/formulariopregunta');
 		}else{
 			//recibo datos, los inserto
 			//pequeña comprobación de $_POST
@@ -29,9 +29,9 @@ class Preguntas extends Controller{
 			);
 
 			if(PreguntasModel::insert($datos)){
-				$this->view->render('preguntas/preguntainsertada');
+				echo $this->view->render('preguntas/preguntainsertada');
 			}else{
-				$this->view->render('preguntas/formulariopregunta', array(
+				echo $this->view->render('preguntas/formulariopregunta', array(
 					'errores' => array('Error al insertar'),
 					'datos' => $_POST
 				));
@@ -46,7 +46,7 @@ class Preguntas extends Controller{
 			$pregunta = PreguntasModel::getSlug($slug);
 			if($pregunta){
 				//encontré una pregunta con ese slug
-				$this->view->render('preguntas/formulariopregunta', array(
+				echo $this->view->render('preguntas/formulariopregunta', array(
 					'datos' => get_object_vars($pregunta),
 					'accion' => 'editar'
 				));
@@ -74,7 +74,7 @@ class Preguntas extends Controller{
 				));
 				*/
 			}else{
-				$this->view->render('preguntas/formulariopregunta', array(
+				echo $this->view->render('preguntas/formulariopregunta', array(
 					'errores' => array('Error al editar'),
 					'datos' => $_POST,
 					'accion' => 'editar'

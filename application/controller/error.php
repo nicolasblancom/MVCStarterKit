@@ -24,6 +24,6 @@ class Error extends Controller
     public function index()
     {
         // load views
-        $this->view->render('error/index', array('msg' => $this->msg));
+        echo $this->view->render("error/index", ['msg' => $this->msg]); 
     }
 }
