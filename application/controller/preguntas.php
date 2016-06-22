@@ -12,6 +12,7 @@ class Preguntas extends Controller{
 	}
 
 	public function crear(){
+		Auth::checkAutentication();
 		if(!$_POST){
 			//es que no recibo datos de formulario
 			echo $this->view->render('preguntas/formulariopregunta');
