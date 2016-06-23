@@ -15,6 +15,10 @@
                 <p><?= $pregunta->cuerpo ?></p>
                 <footer>
                     <a href="/preguntas/editar/<?= $pregunta->slug ?>">[ Editar ]</a>
+                    <a href="/preguntas/cuantasRespuestas/<?= $pregunta->id_pregunta ?>" class="enlacecuantas">[ Cuantas <span></span>]</a>
+                    <a href="/preguntas/enviarRespuesta/<?= $pregunta->slug ?>">[ Responder (Ajax) ]</a>
+                    <a href="/preguntas/enviarRespuestaJSON/<?= $pregunta->slug ?>">[ Responder (JSON) ]</a>
+
                 </footer>
             </article>
         <?php endforeach ?>

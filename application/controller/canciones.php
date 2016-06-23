@@ -1,6 +1,14 @@
 <?php
 class Canciones extends Controller{
 
+	public function __construct(){
+		parent::__construct();
+
+		//invocar un método que me diga si es un user logueado
+		Session::set('origen', '/canciones');
+		Auth::checkAutentication();
+	}
+
 	public function index(){
 		$titulo2 = "Canciones!!!";
 		$foo = "lalala";

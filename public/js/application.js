@@ -38,5 +38,73 @@ $(function() {
 
     setTimeout(function(){
         $(".errorf").hide(1000);
-    }, 2000);
+    }, 5000);
+
+
+    $('.enlacecuantas').on("click", function(e){
+        e.preventDefault();
+        var enlace = $(this);
+        var url = enlace.attr("href");
+        enlace.children("span").load(url);
+    });
+
+    $('#formulariorespuesta').on("submit", function(e){
+        e.preventDefault();
+        var form = $(this);
+        var url = form.attr("action");
+        $.post(url, form.serialize(), function(res){
+            $('.mensajef').html(res);
+        });
+    });
+
+    $('#formulariorespuestaJSON').on("submit", function(e){
+        e.preventDefault();
+        var form = $(this);
+        var url = form.attr("action");
+        var mensaje = $('.mensajef');
+        mensaje.removeClass("exitof");
+        $.ajax(url, {
+            data: form.serialize(),
+            dataType: 'json',
+            method: 'post'
+        })
+        .done(function(res){
+            console.log(res);
+            if(res.exito){
+                form.hide(1000);
+                mensaje.addClass("exitof");
+                $("#cuantasresp").text("Respuestas: " + res.cuantas);
+                //$("#numrespuestas").load('/preguntas/cuantasRespuestasIdPreg/' + res.idRespuesta)
+            }
+            mensaje.html(res.msg);
+        });
+    });
+
+
+    $("#veryaenviadas").on("click", function(e){
+        e.preventDefault();
+        var enlace = $(this);
+        var url = enlace.attr("href");
+        $.getJSON(url, function(res){
+            console.log(res);
+            var capa = $("#respuestasjson");
+            /*
+            for(actual in res){
+                console.log(actual);
+                capa.html(capa.html() + res[actual].id_respuesta + ": " + res[actual].respuesta + "<br>");
+            }
+            */
+            //var stemplate = $("#template").html();
+            $.get('/js/template-respuestas.html')
+            .done(function(stemplate){
+                console.log("templ", stemplate);
+                var tmpl = Handlebars.compile(stemplate);
+                var ctx = {};
+                ctx.respuestas = res;
+                var htmlRespuestas = tmpl(ctx);
+                $("#respuestasjson").html(htmlRespuestas);
+            });
+        });
+    });
+
 });

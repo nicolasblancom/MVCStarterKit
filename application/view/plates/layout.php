@@ -33,6 +33,8 @@
     <script>
         var url = "<?php echo URL; ?>";
     </script>
+    
+    <script src="/js/handlebars-v3.0.3.js"></script>
 
     <!-- our JavaScript -->
     <script src="<?php echo URL; ?>js/application.js"></script>

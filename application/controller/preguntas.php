@@ -83,4 +83,50 @@ class Preguntas extends Controller{
 			}
 		}
 	}
+
+	public function cuantasRespuestas($id = 0){
+		$cuantas = PreguntasModel::cuantasRespuestas($id);
+		echo $this->view->render('preguntas/cuantasRespuestas', array('cuantas' => $cuantas));
+	}
+
+	public function enviarRespuesta($slug = ""){
+		Auth::checkAutentication();
+		if(!$_POST){
+			$pregunta = PreguntasModel::getSlug($slug);
+			echo $this->view->render('preguntas/formulariorespuesta', array('pregunta' => $pregunta));
+		}else{
+			$res = PreguntasModel::insertarRespuesta($slug, $_POST);
+			echo $this->view->render("preguntas/respuestaInsertada", array('respuesta' => $res));
+		}
+
+	}
+
+	public function enviarRespuestaJSON($slug = ""){
+		Auth::checkAutentication();
+		if(!$_POST){
+			$pregunta = PreguntasModel::getSlug($slug);
+			$cuantas = PreguntasModel::cuantasRespuestasSlug($slug);
+			echo $this->view->render('preguntas/formulariorespuestaJSON', 
+				array(
+					'pregunta' => $pregunta,
+					'cuantas' => $cuantas
+				));
+		}else{
+			$res = PreguntasModel::insertarRespuesta($slug, $_POST);
+			$cuantas = PreguntasModel::cuantasRespuestasSlug($slug);
+			echo $this->view->render("preguntas/respuestaInsertadaJSON", 
+				array(
+					'respuesta' => $res,
+					'cuantas' => $cuantas
+					));
+		}
+
+	}
+
+	public function getJSONrespuestas($idPreg = 0){
+        $respuestas = PreguntasModel::getRespuestas($idPreg);
+        echo $this->view->render('preguntas/jsonrespuestas', array('respuestas' => $respuestas));
+        
+    }
+
 }
