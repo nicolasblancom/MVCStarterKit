@@ -52,8 +52,8 @@ sudo rm "/var/www/html/index.html"
 # install git
 sudo apt-get -y install git
 
-# git clone MINI
-sudo git clone https://github.com/panique/mini "/var/www/html/${PROJECTFOLDER}"
+# git clone PROJECT FROM GITHUB
+sudo git clone https://github.com/nicolasblancom/MVCStarterKit "/var/www/html/${PROJECTFOLDER}"
 
 # install Composer (not necessary by default)
 #curl -s https://getcomposer.org/installer | php
@@ -67,6 +67,10 @@ sudo git clone https://github.com/panique/mini "/var/www/html/${PROJECTFOLDER}"
 sudo mysql -h "localhost" -u "root" "-p${PASSWORD}" < "/var/www/html/${PROJECTFOLDER}/_install/01-create-database.sql"
 sudo mysql -h "localhost" -u "root" "-p${PASSWORD}" < "/var/www/html/${PROJECTFOLDER}/_install/02-create-table-song.sql"
 sudo mysql -h "localhost" -u "root" "-p${PASSWORD}" < "/var/www/html/${PROJECTFOLDER}/_install/03-insert-demo-data-into-table-song.sql"
+sudo mysql -h "localhost" -u "root" "-p${PASSWORD}" < "/var/www/html/${PROJECTFOLDER}/_install/04-create-table-preguntas.sql"
+sudo mysql -h "localhost" -u "root" "-p${PASSWORD}" < "/var/www/html/${PROJECTFOLDER}/_install/05-insert-demo-data-into-table-preguntas.sql"
+sudo mysql -h "localhost" -u "root" "-p${PASSWORD}" < "/var/www/html/${PROJECTFOLDER}/_install/06-create-table-usuarios.sql"
+sudo mysql -h "localhost" -u "root" "-p${PASSWORD}" < "/var/www/html/${PROJECTFOLDER}/_install/07-insert-demo-data-into-table-usuarios.sql"
 
 # put the password into the application's config. This is quite hardcore, but why not :)
 sudo sed -i "s/your_password/${PASSWORD}/" "/var/www/html/${PROJECTFOLDER}/application/config/config.php"
